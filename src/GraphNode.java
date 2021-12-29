@@ -7,6 +7,7 @@ public class GraphNode {
     private GraphNode right_sibling;
     private GraphNode parent;
 
+
     public GraphNode(int nodeKey) {
         this.key = nodeKey;
     }

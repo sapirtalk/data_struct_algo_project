@@ -1,12 +1,12 @@
 
 public class GraphNode {
-    private int key;
+    private final int key;
     LinkedList outTo = new LinkedList();
     LinkedList inTo = new LinkedList();
     private GraphNode left_child;
     private GraphNode right_sibling;
     private GraphNode parent;
-
+    private boolean visited =false;
 
     public GraphNode(int nodeKey) {
         this.key = nodeKey;
@@ -44,7 +44,7 @@ public class GraphNode {
     }
 
     public GraphNode getRightSibling() {
-        return right_sibling ;
+        return right_sibling;
     }
 
 
@@ -53,6 +53,7 @@ public class GraphNode {
 
     }
 
+
     public boolean isRoot(){
         return inTo.head == null;
     }
@@ -60,4 +61,5 @@ public class GraphNode {
     public boolean isLeaf(){
         return outTo.head == null;
     }
+
 }

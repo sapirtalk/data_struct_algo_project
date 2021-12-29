@@ -46,9 +46,18 @@ public class GraphNode {
     public GraphNode getRightSibling() {
         return right_sibling ;
     }
-}
+
 
     public GraphNode getParent() {
         return this.parent;
 
     }
+
+    public boolean isRoot(){
+        return inTo.head == null;
+    }
+
+    public boolean isLeaf(){
+        return outTo.head == null;
+    }
+}

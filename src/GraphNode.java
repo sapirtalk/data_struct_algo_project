@@ -6,7 +6,7 @@ public class GraphNode {
     private GraphNode left_child;
     private GraphNode right_sibling;
     private GraphNode parent;
-
+    private boolean visited =false;
 
     public GraphNode(int nodeKey) {
         this.key = nodeKey;
@@ -44,7 +44,7 @@ public class GraphNode {
     }
 
     public GraphNode getRightSibling() {
-        return right_sibling ;
+        return right_sibling;
     }
 }
 

@@ -35,4 +35,12 @@ public class GraphNode {
         }
         return count;
     }
-}
+
+    public GraphNode getLeftChild(){
+        return left_child;
+
+    }
+
+    public GraphNode getRightSibling(){
+        return left_child;
+    }

@@ -6,14 +6,16 @@ public class RootedTree {
     GraphNode root;
 
 
-    public RootedTree(){
+    public RootedTree() {
         this.root = null;
     }
-    public RootedTree(GraphNode root){
+
+    public RootedTree(GraphNode root) {
         this.root = root;
     }
 
 
+    public void printByLayer (DataOutputStream out){
 
-
+    }
 }

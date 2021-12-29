@@ -6,6 +6,7 @@ public class GraphNode {
     private GraphNode left_child;
     private GraphNode right_sibling;
 
+
     public GraphNode(int nodeKey) {
         this.key = nodeKey;
     }

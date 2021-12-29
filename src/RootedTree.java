@@ -16,6 +16,6 @@ public class RootedTree {
 
 
     public void printByLayer (DataOutputStream out){
-
+        out.writeBytes(""+);
     }
 }

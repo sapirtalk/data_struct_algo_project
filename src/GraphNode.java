@@ -5,6 +5,7 @@ public class GraphNode {
     LinkedList inTo = new LinkedList();
     private GraphNode left_child;
     private GraphNode right_sibling;
+    private GraphNode parent;
 
     public GraphNode(int nodeKey) {
         this.key = nodeKey;
@@ -45,3 +46,8 @@ public class GraphNode {
         return right_sibling ;
     }
 }
+
+    public GraphNode getParent() {
+        return this.parent;
+
+    }

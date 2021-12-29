@@ -42,6 +42,6 @@ public class GraphNode {
     }
 
     public GraphNode getRightSibling() {
-        return left_child;
+        return right_sibling ;
     }
 }

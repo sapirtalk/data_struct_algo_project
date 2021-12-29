@@ -6,7 +6,7 @@ public class GraphNode {
     private GraphNode left_child;
     private GraphNode right_sibling;
 
-    public GraphNode(int nodeKey){
+    public GraphNode(int nodeKey) {
         this.key = nodeKey;
     }
 
@@ -14,33 +14,34 @@ public class GraphNode {
         return this.key;
     }
 
-    public int getOutDegree(){
+    public int getOutDegree() {
         LinkedList.Node x = this.outTo.head;
         int count = 0;
 
-        while (x != null){
+        while (x != null) {
             count++;
             x = x.next;
         }
         return count;
     }
 
-    public int getInDegree(){
+    public int getInDegree() {
         LinkedList.Node x = this.inTo.head;
         int count = 0;
 
-        while (x != null){
+        while (x != null) {
             count++;
             x = x.next;
         }
         return count;
     }
 
-    public GraphNode getLeftChild(){
+    public GraphNode getLeftChild() {
         return left_child;
 
     }
 
-    public GraphNode getRightSibling(){
+    public GraphNode getRightSibling() {
         return left_child;
     }
+}

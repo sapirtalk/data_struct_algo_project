@@ -3,6 +3,8 @@ public class GraphNode {
     private int key;
     LinkedList outTo = new LinkedList();
     LinkedList inTo = new LinkedList();
+    private GraphNode left_child;
+    private GraphNode right_sibling;
 
     public GraphNode(int nodeKey){
         this.key = nodeKey;

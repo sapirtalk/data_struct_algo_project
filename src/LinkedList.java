@@ -1,8 +1,10 @@
 public class LinkedList {
     Node head;
 
+
     class Node {
         GraphNode data;
+        LinkedList linked;
         Node next;
         Node prev;
 
@@ -10,6 +12,14 @@ public class LinkedList {
             data = d;
             next = null;
             prev = null;
+            linked = null;
+        }
+
+        Node(LinkedList k){
+            data = null;
+            next = null;
+            prev = null;
+            linked = k;
         }
     }
 

@@ -67,7 +67,7 @@ public class RootedTree {
         // Create a queue and enqueue root
         LinkedList q = new LinkedList();
         TreeNode curr = root.left_child;
-        q.insert(curr);
+        q.insertT(curr);
 
         while (!q.isEmpty())
         {
@@ -86,7 +86,7 @@ public class RootedTree {
                     out.writeUTF(curr.data.getKey() + "/n");
                 if (curr.left_child != null)
                 {
-                    q.insert(curr.left_child);
+                    q.insertT(curr.left_child);
                 }
                 curr = curr.right_sibling;
             }

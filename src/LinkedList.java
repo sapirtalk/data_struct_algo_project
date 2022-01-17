@@ -9,6 +9,7 @@ public class LinkedList {
     class Node {
         GraphNode data;
         RootedTree.TreeNode T_data;
+        GraphEdge E_data;
         Node next;
         Node prev;
 
@@ -20,6 +21,12 @@ public class LinkedList {
 
         Node(RootedTree.TreeNode d) {
             T_data = d;
+            next = null;
+            prev = null;
+        }
+
+        Node(GraphEdge e){
+            E_data = e;
             next = null;
             prev = null;
         }
@@ -38,8 +45,20 @@ public class LinkedList {
 
     }
 
-    public void insert (RootedTree.TreeNode newNode){
+    public void insertT (RootedTree.TreeNode newNode){
         Node x = new Node(newNode);
+        if(this.head == null){
+            this.head = x;
+        }
+        else
+            x.next = this.head;
+        head.prev = x;
+        this.head = x;
+
+    }
+
+    public void insertEdge (GraphEdge newEdge){
+        Node x = new Node(newEdge);
         if(this.head == null){
             this.head = x;
         }

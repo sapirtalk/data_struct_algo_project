@@ -3,9 +3,6 @@ public class GraphNode {
     private final int key;
     LinkedList outTo = new LinkedList();
     LinkedList inTo = new LinkedList();
-    private GraphNode left_child;
-    private GraphNode right_sibling;
-    private GraphNode parent;
     private boolean visited =false;
 
     public GraphNode(int nodeKey) {
@@ -38,20 +35,6 @@ public class GraphNode {
         return count;
     }
 
-    public GraphNode getLeftChild() {
-        return left_child;
-
-    }
-
-    public GraphNode getRightSibling() {
-        return right_sibling;
-    }
-
-
-    public GraphNode getParent() {
-        return this.parent;
-
-    }
 
 
     public boolean isRoot(){

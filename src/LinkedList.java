@@ -1,10 +1,14 @@
 public class LinkedList {
     Node head;
 
+    public boolean isEmpty() {
+        return this.head == null;
+    }
+
 
     class Node {
         GraphNode data;
-        LinkedList linked;
+        RootedTree.TreeNode T_data;
         Node next;
         Node prev;
 
@@ -12,15 +16,14 @@ public class LinkedList {
             data = d;
             next = null;
             prev = null;
-            linked = null;
         }
 
-        Node(LinkedList k){
-            data = null;
+        Node(RootedTree.TreeNode d) {
+            T_data = d;
             next = null;
             prev = null;
-            linked = k;
         }
+
     }
 
     public void insert (GraphNode newNode){
@@ -32,6 +35,18 @@ public class LinkedList {
             x.next = this.head;
             head.prev = x;
             this.head = x;
+
+    }
+
+    public void insert (RootedTree.TreeNode newNode){
+        Node x = new Node(newNode);
+        if(this.head == null){
+            this.head = x;
+        }
+        else
+            x.next = this.head;
+        head.prev = x;
+        this.head = x;
 
     }
 

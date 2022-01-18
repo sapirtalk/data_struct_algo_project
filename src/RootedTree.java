@@ -12,9 +12,9 @@ public class RootedTree {
 
     static class TreeNode {
         GraphNode data;
-        private TreeNode left_child;
-        private TreeNode right_sibling;
-        private TreeNode parent;
+        TreeNode left_child;
+        TreeNode right_sibling;
+        TreeNode parent;
 
         TreeNode(GraphNode d) {
             data = d;
@@ -57,7 +57,7 @@ public class RootedTree {
 
 
     public void printByLayer (DataOutputStream out) throws IOException {
-        TreeNode root = this.root.left_child;
+        TreeNode root = this.root;
         if (root == null)
             return;
         out.writeUTF(root.data.getKey() + "/n");

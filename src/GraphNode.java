@@ -1,9 +1,11 @@
 
 public class GraphNode {
     private final int key;
-    LinkedList outTo = new LinkedList();
-    LinkedList inTo = new LinkedList();
-    private boolean visited =false;
+    LinkedList_V outTo = new LinkedList_V();
+    LinkedList_V inTo = new LinkedList_V();
+    GraphNode next = null;
+    GraphNode prev = null;
+    private boolean visited = false;
 
     public GraphNode(int nodeKey) {
         this.key = nodeKey;
@@ -14,7 +16,7 @@ public class GraphNode {
     }
 
     public int getOutDegree() {
-        LinkedList.Node x = this.outTo.head;
+        GraphNode x = this.outTo.head;
         int count = 0;
 
         while (x != null) {
@@ -25,7 +27,7 @@ public class GraphNode {
     }
 
     public int getInDegree() {
-        LinkedList.Node x = this.inTo.head;
+        GraphNode x = this.inTo.head;
         int count = 0;
 
         while (x != null) {
@@ -45,4 +47,11 @@ public class GraphNode {
         return outTo.head == null;
     }
 
+    public void setVisited(boolean visited) {
+        this.visited = visited;
+    }
+
+    public boolean getVisited(){
+        return this.visited;
+    }
 }

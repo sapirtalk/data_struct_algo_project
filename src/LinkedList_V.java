@@ -13,7 +13,7 @@ public class LinkedList_V {
         GraphNode newNode = new GraphNode(node.getKey());
         newNode.inTo = node.inTo;
         newNode.outTo = node.outTo;
-        newNode.setVisited(node.getVisited());
+        newNode.color = node.color;
 
         return newNode;
     }
@@ -46,5 +46,13 @@ public class LinkedList_V {
         if (node.next != null){
             node.next.prev = node.prev;
         }
+    }
+
+    public GraphNode getLast() {
+        GraphNode v = this.head;
+        while (v != null){
+            v = v.next;
+        }
+        return v.prev;
     }
 }

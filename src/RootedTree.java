@@ -3,47 +3,28 @@ import java.io.IOException;
 
 
 public class RootedTree {
-    TreeNode root;
+    GraphNode root;
 
 
     public RootedTree() {
         this.root = null;
     }
 
-    static class TreeNode {
-        GraphNode data;
-        TreeNode left_child;
-        TreeNode right_sibling;
-        TreeNode parent;
 
-        TreeNode(GraphNode d) {
-            data = d;
-            left_child = null;
-            right_sibling = null;
-            parent = null;
-        }
 
-        public TreeNode getRoot() {
-            if(parent == null){
-                return this;
-            }
-            return parent.getRoot();
-        }
-
-    }
 
     // Adds a sibling to a list with starting with n
-    static TreeNode addSibling(TreeNode n, GraphNode data)
+    public GraphNode addSibling(GraphNode n, GraphNode data)
     {
         if (n == null)
             return null;
         while (n.right_sibling != null)
             n = n.right_sibling;
-        return (n.right_sibling = new TreeNode(data));
+        return n.right_sibling = new GraphNode(data.getKey());
     }
 
     // Add child Node to a Node
-    static TreeNode addChild(TreeNode n, GraphNode data)
+    public GraphNode addChild(GraphNode n, GraphNode data)
     {
         if (n == null)
             return null;
@@ -52,28 +33,28 @@ public class RootedTree {
         if (n.left_child != null)
             return addSibling(n.left_child, data);
         else
-            return (n.left_child = new TreeNode(data));
+            return n.left_child = new GraphNode(data.getKey());
     }
 
 
     public void printByLayer (DataOutputStream out) throws IOException {
-        TreeNode root = this.root;
+        GraphNode root = this.root;
         if (root == null)
             return;
-        out.writeUTF(root.data.getKey() + "/n");
+        out.writeUTF(root.getKey() + "/n");
         if (root.left_child == null)
             return;
 
         // Create a queue and enqueue root
-        LinkedList q = new LinkedList();
-        TreeNode curr = root.left_child;
-        q.insertT(curr);
+        LinkedList_V q = new LinkedList_V();
+        GraphNode curr = root.left_child;
+        q.insert(curr);
 
         while (!q.isEmpty())
         {
 
             // Take out an item from the queue
-            curr = q.head.T_data;
+            curr = q.head;
             q.delete(q.head);
 
             // Print next level of taken out item and enqueue
@@ -81,27 +62,27 @@ public class RootedTree {
             while (curr != null)
             {
                 if(curr.right_sibling != null)
-                    out.writeUTF(curr.data.getKey() + ",");
+                    out.writeUTF(curr.getKey() + ",");
                 else
-                    out.writeUTF(curr.data.getKey() + "/n");
+                    out.writeUTF(curr.getKey() + "/n");
                 if (curr.left_child != null)
                 {
-                    q.insertT(curr.left_child);
+                    q.insert(curr.left_child);
                 }
                 curr = curr.right_sibling;
             }
         }
     }
 
-    void printPreorder(TreeNode node ,DataOutputStream out ) throws IOException {
+    void printPreorder(GraphNode node ,DataOutputStream out ) throws IOException {
         if (node == null)
             return;
 
         /* first print data of node */
         if(node.right_sibling == null && node.left_child == null)
-            out.write(node.data.getKey());
+            out.write(node.getKey());
         else
-            out.writeUTF(node.data.getKey() + ",");
+            out.writeUTF(node.getKey() + ",");
 
         /* then recur on left subtree */
         printPreorder(node.left_child , out);
@@ -111,7 +92,7 @@ public class RootedTree {
     }
 
     public void preorderPrint(DataOutputStream out) throws IOException {
-        TreeNode root = this.root.left_child;
+        GraphNode root = this.root.left_child;
 
         printPreorder(root , out);
 

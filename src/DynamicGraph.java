@@ -1,18 +1,19 @@
-import jdk.nashorn.api.tree.Tree;
+
 
 public class DynamicGraph {
-    private final LinkedList_E Adj_List;
-    private final LinkedList_V Vertex_List;
+    List<GraphEdge> Adj_List;
+    List<GraphNode> Vertex_List;
     int time;
 
     public DynamicGraph(){
-        this.Adj_List = new LinkedList_E();
-        this.Vertex_List = new LinkedList_V();
+        this.Adj_List = new List<>();
+        this.Vertex_List = new List<>();
     }
 
     public GraphNode insertNode(int nodeKey){
         GraphNode newNode = new GraphNode(nodeKey);
-        Vertex_List.insert(newNode);
+        List.item temp = Vertex_List.insert(newNode);
+        newNode.reference = temp;
         return newNode;
     }
 
@@ -20,15 +21,16 @@ public class DynamicGraph {
 
         if(Vertex_List.isEmpty())
             return;
-        if(node.outTo.isEmpty() || node.inTo.isEmpty())
-            return;
 
-        Vertex_List.delete(node);
+        if(node.outTo.isEmpty() && node.inTo.isEmpty())
+            return;
+        Vertex_List.delete(node.reference);
     }
 
     public GraphEdge insertEdge(GraphNode from, GraphNode to){
         GraphEdge newEdge = new GraphEdge(from,to);
-        Adj_List.insert(newEdge);
+        List.item temp = Adj_List.insert(newEdge);
+        newEdge.reference = temp;
         return newEdge;
     }
 
@@ -37,19 +39,20 @@ public class DynamicGraph {
         if(Adj_List.isEmpty())
             return;
 
-        Adj_List.delete(edge);
+        Adj_List.delete(edge.reference);
     }
 
-    public RootedTree DFS(LinkedList_V vertex_List) {
-        GraphNode v = vertex_List.head;
+    public RootedTree DFS(List<GraphNode> vertex_List) {
+        List.item v = vertex_List.head;
         RootedTree mainTree = new RootedTree();
         mainTree.root = new GraphNode(0);
         this.time = 0;
         while (v != null) {
-            v.color = "white";
-            v.d = 0;
-            v.f = 0;
-            v.parent = null;
+            ((GraphNode) v.data).color = "white";
+            ((GraphNode) v.data).d = 0;
+            ((GraphNode) v.data).f = 0;
+            ((GraphNode) v.data).parent = null;
+            ((GraphNode) v.data).right_sibling = null;
             v = v.next;
         }
 
@@ -57,8 +60,8 @@ public class DynamicGraph {
         RootedTree newTree = new RootedTree();
 
         while (v != null) {
-            if (v.color.equals("white")) {
-                newTree.root = v;
+            if (((GraphNode) v.data).color.equals("white")) {
+                newTree.root = ((GraphNode) v.data);
                 DFS_Visit(newTree.root, newTree);
             }
             mainTree.addChild(mainTree.root,newTree.root);
@@ -71,17 +74,17 @@ public class DynamicGraph {
         this.time = this.time + 1;
         v.d = time;
         v.color = "grey";
-        GraphNode u = v.outTo.head;
+        List.item u = v.outTo.head;
         while (u != null){
-            if (u.color.equals("white")){
-                u.parent = v;
-                Tree.addChild(v , u);
-                DFS_Visit(u , Tree);
-                u = u.next;
+            if (((GraphNode) u.data).color.equals("white")){
+                ((GraphNode) u.data).parent = v;
+                Tree.addChild(v , (GraphNode) u.data);
+                DFS_Visit((GraphNode) u.data, Tree);
             }
             v.color = "black";
             this.time = this.time + 1;
             v.f = this.time;
+            u = u.next;
         }
 
     }
@@ -96,38 +99,38 @@ public class DynamicGraph {
 
     public RootedTree bfs(GraphNode source){
 
-        LinkedList_V Q = new LinkedList_V();
+        List<GraphNode> Q = new List<>();
         RootedTree bfs_Tree = new RootedTree();
         bfs_Tree.root = source;
         bfs_Init(Vertex_List , source , Q);
         while (!Q.isEmpty()){
-            GraphNode u = Q.head;
-            Q.delete(Q.head);
-            GraphNode v = u.outTo.head;
+            GraphNode u = (GraphNode) Q.tail.data;
+            Q.delete(Q.tail);
+            List.item v = u.outTo.head;
             while (v != null){
-                if(v.color.equals("white")){
-                    v.color = "grey";
-                    v.d = u.d + 1;
-                    v.parent = u;
-                    Q.insert(v);
-                    bfs_Tree.addChild(v , u);
+                if(((GraphNode) v.data).color.equals("white")){
+                    ((GraphNode) v.data).color = "grey";
+                    ((GraphNode) v.data).d = u.d + 1;
+                    ((GraphNode) v.data).parent = u;
+                    Q.insert((GraphNode) v.data);
+                    bfs_Tree.addChild(u, (GraphNode) v.data);
                 }
-                u.color = "black";
                 v = v.next;
+                /*u.color = "black";*/
             }
         }
 
         return bfs_Tree;
-        
+
     }
 
-    public void bfs_Init(LinkedList_V vertex_List , GraphNode source , LinkedList_V Q){
-        GraphNode v = vertex_List.head;
+    public void bfs_Init(List<GraphNode> vertex_List , GraphNode source , List<GraphNode> Q){
+        List.item v = vertex_List.head;
         while (v != null){
-            if(v != source){
-                v.color = "white";
-                v.d = Integer.MAX_VALUE;
-                v.parent = null;
+            if(v.data != source){
+                ((GraphNode) v.data).color = "white";
+                ((GraphNode) v.data).d = Integer.MAX_VALUE;
+                ((GraphNode) v.data).parent = null;
             }
             v = v.next;
         }

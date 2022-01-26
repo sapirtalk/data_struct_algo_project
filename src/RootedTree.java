@@ -20,7 +20,7 @@ public class RootedTree {
             return null;
         while (n.right_sibling != null)
             n = n.right_sibling;
-        return n.right_sibling = new GraphNode(data.getKey());
+        return n.right_sibling = data;
     }
 
     // Add child Node to a Node
@@ -33,44 +33,48 @@ public class RootedTree {
         if (n.left_child != null)
             return addSibling(n.left_child, data);
         else
-            return n.left_child = new GraphNode(data.getKey());
+            return n.left_child = data;
     }
 
 
     public void printByLayer (DataOutputStream out) throws IOException {
         GraphNode root = this.root;
-        if (root == null)
-            return;
-        out.writeUTF(root.getKey() + "/n");
-        if (root.left_child == null)
-            return;
+        /*if (root == null)
+            return;*/
 
         // Create a queue and enqueue root
-        LinkedList_V q = new LinkedList_V();
-        GraphNode curr = root.left_child;
-        q.insert(curr);
+        List<GraphNode> q = new List<>();
+        q.insert(root);
 
         while (!q.isEmpty())
         {
+            int size = q.length;
 
-            // Take out an item from the queue
-            curr = q.head;
-            q.delete(q.head);
+            while (size > 0) {
 
-            // Print next level of taken out item and enqueue
-            // next level's children
-            while (curr != null)
-            {
-                if(curr.right_sibling != null)
-                    out.writeUTF(curr.getKey() + ",");
-                else
-                    out.writeUTF(curr.getKey() + "/n");
-                if (curr.left_child != null)
-                {
-                    q.insert(curr.left_child);
+                GraphNode curr = (GraphNode) q.tail.data;
+                q.delete(q.tail);
+
+                while (curr != null) {
+
+                    out.writeBytes(String.valueOf(curr.getKey()));
+
+
+                    if (curr.left_child != null) {
+                        q.insert(curr.left_child);
+                    }
+                    curr = curr.right_sibling;
+
+
+                    if(size == 1 && curr == null)
+                        break;
+                    else
+                        out.writeBytes(",");
                 }
-                curr = curr.right_sibling;
+                size--;
+
             }
+            out.writeBytes(System.lineSeparator());
         }
     }
 
@@ -79,10 +83,11 @@ public class RootedTree {
             return;
 
         /* first print data of node */
+
         if(node.right_sibling == null && node.left_child == null)
-            out.write(node.getKey());
+            out.writeBytes(node.getKey() + System.lineSeparator());
         else
-            out.writeUTF(node.getKey() + ",");
+            out.writeBytes(node.getKey() + ",");
 
         /* then recur on left subtree */
         printPreorder(node.left_child , out);
@@ -92,7 +97,7 @@ public class RootedTree {
     }
 
     public void preorderPrint(DataOutputStream out) throws IOException {
-        GraphNode root = this.root.left_child;
+        GraphNode root = this.root;
 
         printPreorder(root , out);
 

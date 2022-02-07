@@ -7,6 +7,7 @@ public class GraphNode {
     GraphNode parent;
     GraphNode left_child;
     GraphNode right_sibling;
+    GraphNode temp;
     int d;
     int f;
     List.item reference;

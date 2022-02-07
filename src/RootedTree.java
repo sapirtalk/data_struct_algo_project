@@ -82,10 +82,7 @@ public class RootedTree {
 
         /* first print data of node */
 
-        if(node.right_sibling == null && node.left_child == null)
-            out.writeBytes(node.getKey() + System.lineSeparator());
-        else
-            out.writeBytes(node.getKey() + ",");
+        out.writeBytes(node.getKey() + ",");
 
         /* then recur on left subtree */
         printPreorder(node.left_child , out);

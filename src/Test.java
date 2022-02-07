@@ -310,13 +310,13 @@ public class Test
                 }
                 case SCC:
                 {
-                    T = G.scc();
-                    outStream.writeBytes("Print in layers after SCC:" + System.lineSeparator());
-                    T.printByLayer(outStream);
-                    outStream.writeBytes(System.lineSeparator());
-                    outStream.writeBytes("Preorder print after SCC:" + System.lineSeparator());
-                    T.preorderPrint(outStream);
-                    outStream.writeBytes(System.lineSeparator());
+//                    T = G.scc();
+//                    outStream.writeBytes("Print in layers after SCC:" + System.lineSeparator());
+//                    T.printByLayer(outStream);
+//                    outStream.writeBytes(System.lineSeparator());
+//                    outStream.writeBytes("Preorder print after SCC:" + System.lineSeparator());
+//                    T.preorderPrint(outStream);
+//                    outStream.writeBytes(System.lineSeparator());
                     break;
                 }
             }

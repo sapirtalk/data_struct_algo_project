@@ -37,6 +37,8 @@ public class DynamicGraph {
         if(Adj_List.isEmpty())
             return;
 
+        edge.from.outTo.delete(edge.fromRef);
+        edge.to.inTo.delete(edge.toRef);
         Adj_List.delete(edge.reference);
     }
 
@@ -133,7 +135,17 @@ public class DynamicGraph {
                     ((GraphNode) v.data).d = u.d + 1;
                     ((GraphNode) v.data).parent = u;
                     Q.insert((GraphNode) v.data);
-                    bfs_Tree.addChild(u, (GraphNode) v.data);
+//                    if(u.left_child == null){
+//                        u.left_child = (GraphNode) v.data;
+//                    }
+//                    else {
+//                        u.temp = u.left_child.right_sibling;
+//                        while (u.temp != null){
+//                            u.temp = u.temp.right_sibling;
+//                        }
+//                        u.temp = (GraphNode) v.data;
+//                    }
+                  addChild(u, (GraphNode) v.data);
                 }
                 v = v.next;
                 /*u.color = "black";*/
@@ -149,7 +161,7 @@ public class DynamicGraph {
         while (v != null){
             if(v.data != source){
                 ((GraphNode) v.data).color = "white";
-                ((GraphNode) v.data).d = Integer.MAX_VALUE;
+                ((GraphNode) v.data).d = -1;
                 ((GraphNode) v.data).parent = null;
             }
             v = v.next;
@@ -173,6 +185,28 @@ public class DynamicGraph {
 
         }
 
+    }
+
+    public GraphNode addSibling(GraphNode n, GraphNode data)
+    {
+        if (n == null)
+            return null;
+        while (n.right_sibling != null)
+            n = n.right_sibling;
+        return n.right_sibling = data;
+    }
+
+    // Add child Node to a Node
+    public GraphNode addChild(GraphNode n, GraphNode data)
+    {
+        if (n == null)
+            return null;
+
+        // Check if child list is not empty.
+        if (n.left_child != null)
+            return addSibling(n.left_child, data);
+        else
+            return n.left_child = data;
     }
 
 

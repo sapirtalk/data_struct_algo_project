@@ -39,8 +39,6 @@ public class RootedTree {
 
     public void printByLayer (DataOutputStream out) throws IOException {
         GraphNode root = this.root;
-        /*if (root == null)
-            return;*/
 
         // Create a queue and enqueue root
         List<GraphNode> q = new List<>();

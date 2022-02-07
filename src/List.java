@@ -68,5 +68,17 @@ public class List<T> {
         return this.head == null;
     }
 
+    public List<T> copyList (){
+        List<T> newList = new List<>();
+
+        item temp = this.tail;
+
+        while (temp != null){
+            newList.insert((T) temp.data);
+            temp = temp.prev;
+        }
+
+        return newList;
+    }
 
 }

@@ -3,20 +3,18 @@ public class GraphNode {
     private final int key;
     List<GraphNode> outTo = new List<>();
     List<GraphNode> inTo = new List<>();
-    String color = "";
+    int color;
     GraphNode parent;
     GraphNode left_child;
     GraphNode right_sibling;
-    GraphNode temp;
+    GraphNode forTree;
+    GraphNode last_sibling;
     int d;
     int f;
     List.item reference;
 
     public GraphNode(int nodeKey) {
         this.key = nodeKey;
-        parent = null;
-        left_child = null;
-        right_sibling = null;
     }
 
     public int getKey() {

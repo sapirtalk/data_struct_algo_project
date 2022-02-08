@@ -48,15 +48,19 @@ public class List<T> {
             return;
         }
 
-        if(item == tail){
-            tail = item.prev;
+        if(item == tail && item == head){
+            this.head = this.tail = null;
         }
-
-        if (item .prev != null){
+        else if(item == tail){
+            tail = item.prev;
+            item.prev.next = null;
+        }
+        else if (item.prev != null){
             item.prev.next = item.next;
         }
         else
             this.head = item.next;
+
         if (item.next != null){
             item.next.prev = item.prev;
         }

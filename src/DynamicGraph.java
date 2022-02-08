@@ -47,7 +47,7 @@ public class DynamicGraph {
         List.item v = vertex_List.head;
         this.time = 0;
         while (v != null) {
-            ((GraphNode) v.data).color = "white";
+            ((GraphNode) v.data).color = 0;
             ((GraphNode) v.data).d = 0;
             ((GraphNode) v.data).f = 0;
             ((GraphNode) v.data).parent = null;
@@ -59,7 +59,7 @@ public class DynamicGraph {
         v = vertex_List.head;
 
         while (v != null) {
-            if (((GraphNode) v.data).color.equals("white")) {
+            if (((GraphNode) v.data).color == 0) {
                RootedTree newTree = new RootedTree();
                newTree.root = (GraphNode) v.data;
                DFS_Order = DFS_Visit((GraphNode) v.data , DFS_Order , newTree);
@@ -74,16 +74,16 @@ public class DynamicGraph {
     public List<GraphNode> DFS_Visit(GraphNode v ,List<GraphNode> list , RootedTree tree){
         this.time = this.time + 1;
         v.d = time;
-        v.color = "grey";
+        v.color = 1;
         List.item u = v.outTo.head;
         while (u != null){
-            if (((GraphNode) u.data).color.equals("white")){
+            if (((GraphNode) u.data).color == 0){
                 ((GraphNode) u.data).parent = v;
-                tree.addChild(v , (GraphNode) u.data);
+                addChild(v , (GraphNode) u.data);
 
                 DFS_Visit((GraphNode) u.data , list , tree);
             }
-            v.color = "black";
+            v.color = 2;
             this.time = this.time + 1;
             v.f = this.time;
             list.insert(v);
@@ -110,7 +110,7 @@ public class DynamicGraph {
 
         while (temp != null){
             if(((GraphNode) temp.data).parent == null){
-                mainTree.addChild(mainTree.root ,(GraphNode) temp.data);
+                addChild(mainTree.root ,(GraphNode) temp.data);
             }
             temp = temp.next;
         }
@@ -123,32 +123,24 @@ public class DynamicGraph {
 
         List<GraphNode> Q = new List<>();
         RootedTree bfs_Tree = new RootedTree();
-        bfs_Tree.root = source;
-        bfs_Init(Vertex_List , source , Q);
+        bfs_Init(source , Q);
+        source.forTree = new GraphNode(source.getKey());
+        bfs_Tree.root = source.forTree;
+
         while (!Q.isEmpty()){
             GraphNode u = (GraphNode) Q.tail.data;
             Q.delete(Q.tail);
             List.item v = u.outTo.head;
             while (v != null){
-                if(((GraphNode) v.data).color.equals("white")){
-                    ((GraphNode) v.data).color = "grey";
+                if(((GraphNode) v.data).color == 0){
+                    ((GraphNode) v.data).color = 1;
                     ((GraphNode) v.data).d = u.d + 1;
                     ((GraphNode) v.data).parent = u;
                     Q.insert((GraphNode) v.data);
-//                    if(u.left_child == null){
-//                        u.left_child = (GraphNode) v.data;
-//                    }
-//                    else {
-//                        u.temp = u.left_child.right_sibling;
-//                        while (u.temp != null){
-//                            u.temp = u.temp.right_sibling;
-//                        }
-//                        u.temp = (GraphNode) v.data;
-//                    }
-                  addChild(u, (GraphNode) v.data);
+                    addChild(u, (GraphNode) v.data);
                 }
                 v = v.next;
-                /*u.color = "black";*/
+                u.color = 2;
             }
         }
 
@@ -156,17 +148,20 @@ public class DynamicGraph {
 
     }
 
-    public void bfs_Init(List<GraphNode> vertex_List , GraphNode source , List<GraphNode> Q){
-        List.item v = vertex_List.head;
+    public void bfs_Init(GraphNode source , List<GraphNode> Q){
+        List.item v = Vertex_List.head;
         while (v != null){
-            if(v.data != source){
-                ((GraphNode) v.data).color = "white";
+                ((GraphNode) v.data).color = 0;
                 ((GraphNode) v.data).d = -1;
                 ((GraphNode) v.data).parent = null;
-            }
+                ((GraphNode) v.data).left_child = null;
+                ((GraphNode) v.data).right_sibling = null;
+                ((GraphNode) v.data).last_sibling = null;
+                ((GraphNode) v.data).forTree = null;
+
             v = v.next;
         }
-        source.color = "grey";
+        source.color = 1;
         source.d = 0;
         source.parent = null;
         Q.insert(source);
@@ -187,26 +182,32 @@ public class DynamicGraph {
 
     }
 
-    public GraphNode addSibling(GraphNode n, GraphNode data)
-    {
-        if (n == null)
-            return null;
-        while (n.right_sibling != null)
-            n = n.right_sibling;
-        return n.right_sibling = data;
-    }
 
-    // Add child Node to a Node
     public GraphNode addChild(GraphNode n, GraphNode data)
     {
-        if (n == null)
-            return null;
 
-        // Check if child list is not empty.
-        if (n.left_child != null)
-            return addSibling(n.left_child, data);
+        if (data.forTree == null)
+            data.forTree = new GraphNode(data.getKey());
+
+        if (n.forTree.left_child == null)
+            return n.forTree.left_child = data.forTree;
+
+        else if (n.forTree.left_child.right_sibling == null){
+           n.forTree.left_child.last_sibling = data.forTree;
+           return n.forTree.left_child.right_sibling = data.forTree;
+        }
         else
-            return n.left_child = data;
+            n.forTree.left_child.last_sibling.right_sibling = data.forTree;
+        return n.forTree.left_child.last_sibling = data.forTree;
+
+
+//        if (data.forTree == null) {
+//            data.forTree = new GraphNode(data.getKey());
+//        }
+//        new GraphEdge(n.forTree, data.forTree);
+
+
+
     }
 
 

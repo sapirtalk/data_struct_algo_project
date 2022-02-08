@@ -13,30 +13,6 @@ public class RootedTree {
 
 
 
-    // Adds a sibling to a list with starting with n
-    public GraphNode addSibling(GraphNode n, GraphNode data)
-    {
-        if (n == null)
-            return null;
-        while (n.right_sibling != null)
-            n = n.right_sibling;
-        return n.right_sibling = data;
-    }
-
-    // Add child Node to a Node
-    public GraphNode addChild(GraphNode n, GraphNode data)
-    {
-        if (n == null)
-            return null;
-
-        // Check if child list is not empty.
-        if (n.left_child != null)
-            return addSibling(n.left_child, data);
-        else
-            return n.left_child = data;
-    }
-
-
     public void printByLayer (DataOutputStream out) throws IOException {
         GraphNode root = this.root;
 

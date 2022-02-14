@@ -22,8 +22,7 @@ public class DynamicGraph {
             return;
 
         if(node.outTo.isEmpty() && node.inTo.isEmpty())
-            return;
-        Vertex_List.delete(node.reference);
+            Vertex_List.delete(node.reference);
     }
 
     public GraphEdge insertEdge(GraphNode from, GraphNode to){

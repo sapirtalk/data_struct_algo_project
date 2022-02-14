@@ -49,7 +49,8 @@ public class RootedTree {
                 size--;
 
             }
-            out.writeBytes(System.lineSeparator());
+            if(!q.isEmpty())
+                out.writeBytes(System.lineSeparator());
         }
     }
 

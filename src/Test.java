@@ -6,11 +6,11 @@ import static java.lang.System.out;
 interface Constants
 {
     int SEED = 3659412;
-    int TEST_SIZE = 100 ; //10326
+    int TEST_SIZE = 10326;
     int UNIQUE_KEYS_NUM = TEST_SIZE;
     int MAXIMUM_INSERT_NODES = UNIQUE_KEYS_NUM;
     int MAXIMUM_INSERT_EDGES = TEST_SIZE;
-    int UNIQUE_KEYS_MAXIMUM = TEST_SIZE * 10; //100
+    int UNIQUE_KEYS_MAXIMUM = TEST_SIZE * 100;
     int INITIAL_NUMBER_OF_NODES = TEST_SIZE / 10;
     int INITIAL_NUMBER_OF_EDGES = TEST_SIZE / 4;
     enum Operations {INSERT_NODE, DELETE_NODE, INSERT_EDGE, DELETE_EDGE, DEGREE, BFS, SCC}
@@ -283,11 +283,11 @@ public class Test
                 {
                     randomIndex = random.nextInt(CG.getCurrentNodesIndex());
                     T = G.bfs(CG.getNodeByIndex(randomIndex));
-                   outStream.writeBytes("Print in layers after BFS:" + System.lineSeparator());
-                   T.printByLayer(outStream);
-                   outStream.writeBytes(System.lineSeparator());
-//                   outStream.writeBytes("Preorder print after BFS:" + System.lineSeparator());
-//                    T.preorderPrint(outStream);
+                    outStream.writeBytes("Print in layers after BFS:" + System.lineSeparator());
+                    T.printByLayer(outStream);
+                    outStream.writeBytes(System.lineSeparator());
+                    outStream.writeBytes("Preorder print after BFS:" + System.lineSeparator());
+                    T.preorderPrint(outStream);
                     outStream.writeBytes(System.lineSeparator());
                     break;
                 }
@@ -310,13 +310,13 @@ public class Test
                 }
                 case SCC:
                 {
-//                    T = G.scc();
-//                    outStream.writeBytes("Print in layers after SCC:" + System.lineSeparator());
-//                    T.printByLayer(outStream);
-//                    outStream.writeBytes(System.lineSeparator());
-//                    outStream.writeBytes("Preorder print after SCC:" + System.lineSeparator());
-//                    T.preorderPrint(outStream);
-//                    outStream.writeBytes(System.lineSeparator());
+                    T = G.scc();
+                    outStream.writeBytes("Print in layers after SCC:" + System.lineSeparator());
+                    T.printByLayer(outStream);
+                    outStream.writeBytes(System.lineSeparator());
+                    outStream.writeBytes("Preorder print after SCC:" + System.lineSeparator());
+                    T.preorderPrint(outStream);
+                    outStream.writeBytes(System.lineSeparator());
                     break;
                 }
             }

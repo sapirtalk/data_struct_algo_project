@@ -59,7 +59,7 @@ public class DynamicGraph {
                RootedTree newTree = new RootedTree();
                ((GraphNode) v.data).forTree = new GraphNode(((GraphNode) v.data).getKey());
                newTree.root = ((GraphNode) v.data).forTree;
-               DFS_Visit((GraphNode) v.data , DFS_Order , newTree);
+               DFS_Visit((GraphNode) v.data , DFS_Order);
             }
             v = v.next;
         }
@@ -68,7 +68,7 @@ public class DynamicGraph {
 
     }
 
-    public void DFS_Visit(GraphNode v ,List<GraphNode> list , RootedTree tree){
+    public void DFS_Visit(GraphNode v ,List<GraphNode> list){
         this.time = this.time + 1;
         v.d = this.time;
         v.color = 1;
@@ -77,7 +77,7 @@ public class DynamicGraph {
             if (((GraphNode) u.data).color == 0){
                 ((GraphNode) u.data).parent = v;
                 addChild(v , (GraphNode) u.data);
-                DFS_Visit((GraphNode) u.data , list , tree);
+                DFS_Visit((GraphNode) u.data , list);
             }
             u = u.next;
         }
@@ -203,10 +203,6 @@ public class DynamicGraph {
             return n.forTree.left_child.last_sibling = data.forTree;
         }
 
-//        if (data.forTree == null) {
-//            data.forTree = new GraphNode(data.getKey());
-//        }
-//        new GraphEdge(n.forTree, data.forTree);
 
 
 

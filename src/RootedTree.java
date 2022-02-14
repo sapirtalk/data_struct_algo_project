@@ -4,6 +4,7 @@ import java.io.IOException;
 
 public class RootedTree {
     GraphNode root;
+    int numNodes;
 
 
     public RootedTree() {
@@ -57,8 +58,12 @@ public class RootedTree {
             return;
 
         /* first print data of node */
-
-        out.writeBytes(node.getKey() + ",");
+        if(this.numNodes > 1) {
+            out.writeBytes(node.getKey() + ",");
+            this.numNodes--;
+        }
+        else
+            out.writeBytes(node.getKey() + "");
 
         /* then recur on left subtree */
         printPreorder(node.left_child , out);

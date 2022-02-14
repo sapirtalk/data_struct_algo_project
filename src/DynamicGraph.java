@@ -91,6 +91,7 @@ public class DynamicGraph {
 
     public RootedTree scc(){
         RootedTree mainTree = new RootedTree();
+        mainTree.numNodes = Vertex_List.length + 1;
         List newOrder;
         List after;
         GraphNode root = new GraphNode(0);
@@ -120,6 +121,7 @@ public class DynamicGraph {
         bfs_Init(source , Q);
         source.forTree = new GraphNode(source.getKey());
         bfs_Tree.root = source.forTree;
+        bfs_Tree.numNodes = 1;
 
         while (!Q.isEmpty()){
             GraphNode u = (GraphNode) Q.tail.data;
@@ -132,6 +134,7 @@ public class DynamicGraph {
                     ((GraphNode) v.data).parent = u;
                     Q.insert((GraphNode) v.data);
                     addChild(u, (GraphNode) v.data);
+                    bfs_Tree.numNodes++;
                 }
                 v = v.next;
                 u.color = 2;

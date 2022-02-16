@@ -1,3 +1,22 @@
+/**
+
+ * This class represents a Generic List to be used as a Data Structure
+
+ * @version final
+
+ * @author Sapir Talker and Bar Amrani
+ * @date 16/02/2022
+ *
+ * fields:
+ *
+ *  head : Head of this List
+ *  tail : Tail of this List
+ *  length : The length of the List (int)
+
+
+ */
+
+@SuppressWarnings("all")
 public class List<T> {
     item head;
     item tail;
@@ -9,6 +28,16 @@ public class List<T> {
         this.length = 0;
     }
 
+    /**
+     * this class represents a Generic Item of the List
+     * @param <T> the data's Type
+     *
+     *
+     *
+     *   data the data that is being held inside this Item
+     *   next the next item in the list
+     *   prev the prev item in the list
+     */
     class item<T> {
 
         T data;
@@ -24,6 +53,11 @@ public class List<T> {
 
     }
 
+    /**
+     * Inserting a new data to this list
+     * @param newData the data to be inserted
+     * @return the holding item's reference
+     */
     public item insert (T newData){
         item x = new item<T>(newData);
 
@@ -42,6 +76,10 @@ public class List<T> {
 
     }
 
+    /**
+     * Delete an item from the list
+     * @param item deletes this item from the List
+     */
     public void delete(item item){
 
         if(item == null){
@@ -67,22 +105,12 @@ public class List<T> {
         length--;
     }
 
-
+    /**
+     *
+     * @return if the List is empty
+     */
     public boolean isEmpty() {
         return this.head == null;
     }
-
-    public List<T> copyList (){
-        List<T> newList = new List<>();
-
-        item temp = this.tail;
-
-        while (temp != null){
-            newList.insert((T) temp.data);
-            temp = temp.prev;
-        }
-
-        return newList;
-    }
-
+    
 }

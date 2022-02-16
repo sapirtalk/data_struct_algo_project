@@ -1,19 +1,37 @@
 import java.io.DataOutputStream;
 import java.io.IOException;
+/**
 
+ * This class represents a RootedTree
+
+ * @version final
+
+ * @author Sapir Talker and Bar Amrani
+ * @date 16/2/2022
+ *
+ * fields:
+ *
+ * root : the root of this Tree
+ * numNodes : to be used in PrintByLayer (int) as the number of nodes in this tree
+ */
 
 public class RootedTree {
     GraphNode root;
     int numNodes;
 
-
+    /**
+     * Constructor
+     */
     public RootedTree() {
         this.root = null;
     }
 
 
-
-
+    /**
+     * Prints this RootedTree by layers
+     * @param out given DataOutputStream
+     * @throws IOException .
+     */
     public void printByLayer (DataOutputStream out) throws IOException {
         GraphNode root = this.root;
 
@@ -54,6 +72,12 @@ public class RootedTree {
         }
     }
 
+    /**
+     * To be used in preorderPrint
+     * @param node the next GraphNode to be printed
+     * @param out Given DataOutputStream
+     * @throws IOException .
+     */
     void printPreorder(GraphNode node ,DataOutputStream out ) throws IOException {
         if (node == null)
             return;
@@ -73,6 +97,11 @@ public class RootedTree {
         printPreorder(node.right_sibling , out);
     }
 
+    /**
+     * Prints this RootedTree preorder
+     * @param out given DataOutputStream
+     * @throws IOException .
+     */
     public void preorderPrint(DataOutputStream out) throws IOException {
         GraphNode root = this.root;
 

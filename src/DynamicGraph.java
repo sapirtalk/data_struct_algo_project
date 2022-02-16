@@ -1,21 +1,52 @@
+/**
+
+ * This class represents a DynamicGraph
+
+ * @version final
+
+ * @author Sapir Talker and Bar Amrani
+ * @date 16/02/2022
+ *
+ * fields:
+ *
+ *  Adj_List : List of Edges of the DynamicGraph
+ *  Vertex_List : List of Vertexes of the DynamicGraph
+ *  time : To be used in BFS/DFS algorithms (int)
 
 
+ */
+
+
+
+@SuppressWarnings("all")
 public class DynamicGraph {
     List<GraphEdge> Adj_List;
     List<GraphNode> Vertex_List;
     int time;
 
+    /**
+     * Constructor
+     */
     public DynamicGraph(){
         this.Adj_List = new List<>();
         this.Vertex_List = new List<>();
     }
 
+    /**
+     * inserting a GraphNode to this DynamicGraph
+     * @param nodeKey the value being assigned
+     * @return the inserted GraphNode
+     */
     public GraphNode insertNode(int nodeKey){
         GraphNode newNode = new GraphNode(nodeKey);
         newNode.reference = Vertex_List.insert(newNode);
         return newNode;
     }
 
+    /**
+     * Deleting a GraphNode from this DynamicGraph
+     * @param node the GraphNode that is being deleted
+     */
     public void deleteNode(GraphNode node){
 
         if(Vertex_List.isEmpty())
@@ -25,12 +56,22 @@ public class DynamicGraph {
             Vertex_List.delete(node.reference);
     }
 
+    /**
+     * Inserting a new GraphEdge to this DynamicGraph
+     * @param from the source GraphNode
+     * @param to the end GraphNode
+     * @return the inserted GraphEdge
+     */
     public GraphEdge insertEdge(GraphNode from, GraphNode to){
         GraphEdge newEdge = new GraphEdge(from,to);
         newEdge.reference = Adj_List.insert(newEdge);
         return newEdge;
     }
 
+    /**
+     * Deletes a GraphEdge from this DynamicGraph
+     * @param edge the GraphEdge that is being deleted
+     */
     public void deleteEdge(GraphEdge edge){
 
         if(Adj_List.isEmpty())
@@ -41,6 +82,11 @@ public class DynamicGraph {
         Adj_List.delete(edge.reference);
     }
 
+    /**
+     * DFS algorithm on this DynamicGraph
+     * @param vertex_List a list of Vertexes
+     * @return the final DFS Order List
+     */
     public List<GraphNode> DFS(List<GraphNode> vertex_List) {
         List DFS_Order = new List<GraphNode>();
         List.item v = vertex_List.head;
@@ -68,6 +114,12 @@ public class DynamicGraph {
 
     }
 
+    /**
+     * Part of the DFS algorithm, Used in DFS function
+     * @param v the GraphNode that his children are being explored
+     * @param list the current DFS_Order list
+     * @param tree the Rooted tree that the GraphNodes are being assigned to
+     */
     public void DFS_Visit(GraphNode v ,List<GraphNode> list , RootedTree tree){
         this.time = this.time + 1;
         v.d = this.time;
@@ -88,7 +140,10 @@ public class DynamicGraph {
     }
 
 
-
+    /**
+     *
+     * @return Tree of Strongly Connected Components
+     */
     public RootedTree scc(){
         RootedTree mainTree = new RootedTree();
         mainTree.numNodes = Vertex_List.length + 1;
@@ -114,6 +169,11 @@ public class DynamicGraph {
 
     }
 
+    /**
+     * BFS algorithm on this DynamicGraph
+     * @param source the root of the BFS Tree
+     * @return A BFS tree
+     */
     public RootedTree bfs(GraphNode source){
 
         List<GraphNode> Q = new List<>();
@@ -145,6 +205,11 @@ public class DynamicGraph {
 
     }
 
+    /**
+     * Part of the BFS algoithm , to be used in BFS function
+     * @param source The root of the BFS Tree
+     * @param Q an empty List
+     */
     public void bfs_Init(GraphNode source , List<GraphNode> Q){
         List.item v = Vertex_List.head;
         while (v != null){
@@ -161,6 +226,10 @@ public class DynamicGraph {
         Q.insert(source);
     }
 
+    /**
+     * transpose the connections of the given GraphNodes
+     * @param nodes list of GraphNodes
+     */
     public void transpose(List<GraphNode> nodes){
         List.item v = nodes.head;
         while(v != null){
@@ -172,7 +241,11 @@ public class DynamicGraph {
 
     }
 
-
+    /**
+     * Adding as a child the data Graphnode to the n Graphnode
+     * @param n the parent GraphNode
+     * @param data the to be child GraphNode
+     */
     public GraphNode addChild(GraphNode n, GraphNode data)
     {
 
@@ -202,14 +275,6 @@ public class DynamicGraph {
                 n.forTree.left_child.last_sibling.right_sibling = data.forTree;
             return n.forTree.left_child.last_sibling = data.forTree;
         }
-
-//        if (data.forTree == null) {
-//            data.forTree = new GraphNode(data.getKey());
-//        }
-//        new GraphEdge(n.forTree, data.forTree);
-
-
-
     }
 
 

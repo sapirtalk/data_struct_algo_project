@@ -1,4 +1,4 @@
-# mevne_Code
+# data_struct_algo_project
 
 This is one of my Data Structures and Algorithms projects i have been working on with my partner ,
 it includes implementation of data structures from scratch including binary tree, Linked list, Directed graphs. 
